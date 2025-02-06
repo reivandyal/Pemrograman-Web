@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .task {
+            display: flex;
+            justify-content: space-between;
+            background: #f4f4f4;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <input type="text" id="taskInput" placeholder="Tambahkan tugas...">
+    <button onclick="addTask()">Tambahkan</button>
+    <div id="taskList"></div>
+
+    <script>
+        function addTask() {
+            const taskText = document.getElementById("taskInput").value;
+            if (taskText.trim() === "") return;
+            
+            const taskList = document.getElementById("taskList");
+            const taskDiv = document.createElement("div");
+            taskDiv.classList.add("task");
+            
+            const taskContent = document.createElement("span");
+            taskContent.textContent = taskText;
+            
+            const completeButton = document.createElement("button");
+            completeButton.textContent = "✔";
+            completeButton.onclick = function () {
+                taskContent.classList.toggle("completed");
+            };
+            
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "🗑";
+            deleteButton.onclick = function () {
+                taskList.removeChild(taskDiv);
+            };
+            
+            taskDiv.appendChild(taskContent);
+            taskDiv.appendChild(completeButton);
+            taskDiv.appendChild(deleteButton);
+            taskList.appendChild(taskDiv);
+            
+            document.getElementById("taskInput").value = "";
+        }
+    </script>
+</body>
+</html>
